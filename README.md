@@ -33,7 +33,7 @@ We will create a website that will generate a recipe card from a URL of a recipe
 ###Front Page
 ###Recipe View
 ###Cooking View
-![Cooking View Wireframe](cookingview.png)
+![Cooking View Wireframe](https://github.com/tuftsdev/comp20-spring2015-team13/blob/master/Wireframes/cookingview.png)
 ###Mobile Features Views
-![Cooking View Wireframe](mobileview.png)
+![Cooking View Wireframe](https://github.com/tuftsdev/comp20-spring2015-team13/blob/master/Wireframes/mobileview.png)
 
