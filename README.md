@@ -31,7 +31,10 @@ We will create a website that will generate a recipe card from a URL of a recipe
 
 ##Mockups
 ###Front Page
+![Cooking View Wireframe](https://github.com/tuftsdev/comp20-spring2015-team13/blob/master/Wireframes/newuser.png)
+![Cooking View Wireframe](https://github.com/tuftsdev/comp20-spring2015-team13/blob/master/Wireframes/ruserpage.png)
 ###Recipe View
+![Cooking View Wireframe](https://github.com/tuftsdev/comp20-spring2015-team13/blob/master/Wireframes/mockup.png)
 ###Cooking View
 ![Cooking View Wireframe](https://github.com/tuftsdev/comp20-spring2015-team13/blob/master/Wireframes/cookingview.png)
 ###Mobile Features Views
