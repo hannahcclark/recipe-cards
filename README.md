@@ -40,3 +40,9 @@ We will create a website that will generate a recipe card from a URL of a recipe
 ###Mobile Features Views
 ![Cooking View Wireframe](https://github.com/tuftsdev/comp20-spring2015-team13/blob/master/Wireframes/mobileview.png)
 
+#Comments by Ming
+1. WAY too ambitious, you will be lucky to complete 2 or 3 of the features listed well.
+2. Be very careful with data scraping. It can be ugly.
+3. Lovely wireframes
+4. What APIs will you be using?
+5. Overall score: 14/15
