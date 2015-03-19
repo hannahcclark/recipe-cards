@@ -1,1 +1,1 @@
-web: gunicorn recipe-cards:app --log-file=-
+web: gunicorn recipe-cards-api:app --log-file=-
