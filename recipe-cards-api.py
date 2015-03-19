@@ -43,10 +43,10 @@ def index():
 
 @app.route('/recipe-cards/api/v1.0/recipes/<recipe_id>', methods=['GET'])
 def get_recipe_by_id(recipe_id):
-	recipes = [recipe for recipe in test_recipe_database if recipe['id'] == recipe_id]
-	if len(recipes) == 0:
-		abort(404)
-	return jsonify({'recipe':recipes[0]})
+	#recipes = [recipe for recipe in test_recipe_database if recipe['id'] == recipe_id]
+	#if len(recipes) == 0:
+	#	abort(404)
+	return jsonify({'recipe':test_recipe_database[0]})
 
 if __name__ == '__main__':
 	app.run()
