@@ -25,7 +25,7 @@ else:
 # Split whatever version of netloc we have left to get the host and port.
 app.config['MONGODB_HOST'], app.config['MONGODB_PORT'] = server.split(':')
 
-connection = Connection(app.config['MONGODB_HOST'], app.config['MONGODB_PORT'])
+connection = Connection(app.config['MONGODB_HOST'], int(app.config['MONGODB_PORT']))
 
 class User(Document):
 	__collection__ = 'users'
@@ -36,9 +36,6 @@ class User(Document):
 		'password': unicode,
 		'recipes': [int]
 	}
-	use_dot_notation = True
-	def __repr__(self):
-        return '<User %r>' % (self.name)
 
 connection.register([User])
 
@@ -53,9 +50,6 @@ class Recipe(Document):
 		'ingredients': [unicode],
 		'directions': [unicode]
 	}
-	use_dot_notation = True
-	def __repr__(self):
-        return '<Recipe %r>' % (self.name)
 
 connection.register([Recipe])
 
