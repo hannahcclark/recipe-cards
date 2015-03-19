@@ -41,7 +41,7 @@ def not_found(error):
 def index():
 	return "Hello, World!" #Temporary home page
 
-@app.route('/recipe-cards/api/v1.0/<string:recipe_id>', methods=['GET'])
+@app.route('/recipe-cards/api/v1.0/recipes/<recipe_id>', methods=['GET'])
 def get_recipe_by_id(recipe_id):
 	recipes = [recipe for recipe in test_recipe_database if recipe['id'] == recipe_id]
 	if len(recipes) == 0:
@@ -49,4 +49,4 @@ def get_recipe_by_id(recipe_id):
 	return jsonify({'recipe':recipes[0]})
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run()
