@@ -1,1 +1,1 @@
-wweb: gunicorn recipe-api:app --log-file=-
+web: gunicorn recipe-api:app --log-file=-
