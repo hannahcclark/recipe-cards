@@ -1,35 +1,36 @@
 from flask import Flask
 from flask import abort
 from flask import make_response
+from flask import jsonify
 
 app = Flask(__name__)
 test_recipe_database = [
 	{
-		'id': 'someRecipe',
-		'url': 'https:www.example.com/meatballs',
-		'name': 'Meatballs',
-		'source': 'example.com',
+		'id': u'someRecipe',
+		'url': u'https:www.example.com/meatballs',
+		'name': u'Meatballs',
+		'source': u'example.com',
 		'ingredients': [
-			'1 lb ground meat', 
-			'1 cup breadcrumbs', 
-			'1 egg', 
-			'1 cup grated parmesan',
-			'spices'
+			u'1 lb ground meat', 
+			u'1 cup breadcrumbs', 
+			u'1 egg', 
+			u'1 cup grated parmesan',
+			u'spices'
 		],
 		'directions': [
-			'Preheat oven to 400 degrees F',
-			'Thoroughly mix ingredients',
-			'Form into balls and place onto baking sheet',
-			'Bake for 30 minutes'
+			u'Preheat oven to 400 degrees F',
+			u'Thoroughly mix ingredients',
+			u'Form into balls and place onto baking sheet',
+			u'Bake for 30 minutes'
 		]
 	}
 ]
 test_user_database = [
 	{
-		'id': 'someUser',
-		'username': 'user@example.com',
-		'password': 'pass',
-		'recipes': ['someRecipe']
+		'id': u'someUser',
+		'username': u'user@example.com',
+		'password': u'pass',
+		'recipes': [u'someRecipe']
 	}
 ]
 
@@ -43,10 +44,10 @@ def index():
 
 @app.route('/recipe-cards/api/v1.0/recipes/<recipe_id>', methods=['GET'])
 def get_recipe_by_id(recipe_id):
-	#recipes = [recipe for recipe in test_recipe_database if recipe['id'] == recipe_id]
-	#if len(recipes) == 0:
-	#	abort(404)
-	return jsonify({'recipe':test_recipe_database[0]})
+	recipes = [recipe for recipe in test_recipe_database if recipe['id'] == unicode(recipe_id)]
+	if len(recipes) == 0:
+	 	abort(404)
+	return jsonify({'recipe':recipes[0]})
 
 if __name__ == '__main__':
 	app.run()
