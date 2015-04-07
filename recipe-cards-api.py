@@ -6,6 +6,7 @@ from flask import request
 from pymongo import MongoClient
 import json
 from bson.objectid import ObjectId
+import logging
 
 #http://stackoverflow.com/questions/19877903/using-mongo-with-flask-and-python used to resolve issue with objectids and json
 
@@ -43,7 +44,10 @@ def index():
 @app.route('/recipe-cards/api/v1.0/recipes/<recipe_id>', methods=['GET'])
 def get_recipe_by_id(recipe_id):
 	recipes = db.recipes
-	recipe = recipes.find_one({"_id":ObjectId(str(recipe_id))})
+	try:
+		recipe = recipes.find_one({"_id":ObjectId(str(recipe_id))})
+	except:
+		abort(404)
 	if recipe == None:
 	 	abort(404)
 	return json.dumps({'recipe':recipe}, default=doc_encoder) #replace with one that does not give back objid
