@@ -20,9 +20,21 @@ def doc_encoder(o):
         return str(o)
     return o.__str__
 
+@app.errorhandler(400)
+def bad_params(error):
+    return make_response(jsonify({'error': 'Request not properly formed'}), 400)
+
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
+
+@app.errorhandler(409)
+def dup_login(error):
+    return make_response(jsonify({'error': 'A user with that username already exists.'}), 409)
+
+@app.errorhandler(422)
+def bad_credentials(error):
+    return make_response(jsonify({'error': 'Login credentials are incorrect.'}), 422)
 
 @app.route('/')
 def index():
@@ -48,7 +60,7 @@ def get_recipe_from_url():
 	users = db.users
 	user = users.find_one({"_id":ObjectId(str(data['userid']))})
 	if user == None:
-		abort(404)
+		abort(400)
 	users.update({'_id':user['_id']},{'$push':{'recipes': str(recipe["_id"])}})
 	return json.dumps({'recipe':recipe}, default=doc_encoder)
 
@@ -61,7 +73,7 @@ def create_account():
 	is_user = users.find_one({"username":data['username']})
 	if is_user == None:
 		return json.dumps({'userid':users.insert({"username":data['username'], "password":data['password'], "recipes":[]})}, default=doc_encoder)
-	abort(404) #replace with helpful error with message about username is taken
+	abort(409)
 
 @app.route('/recipe-cards/api/v1.0/login/', methods=['POST'])
 def login():
@@ -71,7 +83,7 @@ def login():
 	users = db.users
 	user = users.find_one({"username":data['username']})
 	if user == None:
-		abort(404) #replace with helpful error with message about username is taken
+		abort(422)
 	return json.dumps({'userid':user['_id']}, default=doc_encoder)
 
 if __name__ == '__main__':
