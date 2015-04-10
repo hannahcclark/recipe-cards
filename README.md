@@ -11,9 +11,9 @@ We will create a website that will generate a recipe card from a URL of a recipe
 * The space bar will show or hide the ingredient sidebar when in cooking view.
 * We will allow the user to look through their previously saved recipes.
 * We will allow the user to choose between two different styles of view.
-* We will allow the user to email or text it ingredients of a recipe to themselves or someone else. (Pick 5: Send emails, SMSes, or push notifications)
+* We will allow the user to text ingredients of a recipe to themselves or someone else. (Pick 5: Send emails, SMSes, or push notifications)
 * We will allow the user to view the nearest supermarkets to them as a list and on a map. (Pick 5: Geolocation)
-* We will be using a currently unchosen front-end framework to help accomplish implementing our planned features.
+* We will be using a Bootstrap to help accomplish implementing our planned features.
 
 ##Data Collected
 * We will use and store very basic user information for accounts, such as name and login information.
