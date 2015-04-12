@@ -11,10 +11,9 @@ We will create a website that will generate a recipe card from a URL of a recipe
 * The space bar will show or hide the ingredient sidebar when in cooking view.
 * We will allow the user to look through their previously saved recipes.
 * We will allow the user to choose between two different styles of view.
-* We will allow the user to generate and view a shopping list from selected recipes, with the option to email or text it to themselves or someone else. (Pick 5: Send emails, SMSes, or push notifications)
-	* Identical ingredients from several recipes to one item will be combined if possible.
+* We will allow the user to text ingredients of a recipe to themselves or someone else. (Pick 5: Send emails, SMSes, or push notifications)
 * We will allow the user to view the nearest supermarkets to them as a list and on a map. (Pick 5: Geolocation)
-* We will be using a currently unchosen front-end framework to help accomplish implementing our planned features.
+* We will be using a Bootstrap to help accomplish implementing our planned features.
 
 ##Data Collected
 * We will use and store very basic user information for accounts, such as name and login information.
@@ -24,10 +23,6 @@ We will create a website that will generate a recipe card from a URL of a recipe
 
 ##Algorithms/Special Techniques
 * We will need to accurately scrape recipe information for different websites that will likely present it in different formats.
-* We will also need to come up with a method of determining "sameness" of ingredients. For example:
-	* tomatoes, diced is equal to tomatoes because it implies fresh tomatoes that are diced by the cook
-	* diced tomatoes is not equal to tomatoes because it implies canned diced tomatoes
-* We will possible need to determine how to add different measures if we include amount for items in the shopping list.
 
 ##Mockups
 ###Front Page
