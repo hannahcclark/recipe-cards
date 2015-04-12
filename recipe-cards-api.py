@@ -52,25 +52,43 @@ def get_recipe_by_id(recipe_id):
 	 	abort(404)
 	return json.dumps({'recipe':recipe}, default=doc_encoder) #replace with one that does not give back objid
 
+@app.route('/recipe-cards/api/v1.0/recipes-by-user/<user_id>', methods=['GET'])
+def get_recipes_by_user(user_id):
+	users = db.users
+	try:
+		user = users.find_one({"_id":ObjectId(str(user_id))})
+	except:
+		abort(404)
+	if user == None:
+	 	abort(404)
+	recipeList = map(lambda x: ObjectId(x), user['recipes'])
+	recipes = db.recipes.find({"_id":{"$in": recipeList}})
+	recipeList = []
+	for recipe in recipes:
+	 	recipeList.append({"_id":str(recipe["_id"]),"name":recipe["name"]})
+	return json.dumps(recipeList, default=doc_encoder)
+
 @app.route('/recipe-cards/api/v1.0/recipes/recipe-by-url/', methods=['POST'])
-def get_recipe_from_url():
-	data = request.json
-	if  not data or not 'url' in data or not 'userid' in data:
+def recipe_from_url():
+	data = request.form
+	if not data or not 'url' in data or not 'userid' in data:
 		abort(400)
 	recipes = db.recipes
 	recipe = recipes.find_one({"url":data['url']})
 	if recipe == None:
 	 	abort(404) #replace with code to scrape and insert
+	 	#recipe["_id"] = recipes.insert(recipe, default=doc_encoder)
+	recipeid = str(recipe["_id"])
 	users = db.users
 	user = users.find_one({"_id":ObjectId(str(data['userid']))})
 	if user == None:
-		abort(400)
-	users.update({'_id':user['_id']},{'$push':{'recipes': str(recipe["_id"])}})
-	return json.dumps({'recipe':recipe}, default=doc_encoder)
+		abort(404)
+	users.update({'_id':user['_id']},{'$addToSet':{'recipes': recipeid}})
+	return json.dumps({'recipeid':recipeid}, default=doc_encoder)
 
 @app.route('/recipe-cards/api/v1.0/create-account/', methods=['POST'])
 def create_account():
-	data = request.json
+	data = request.form
 	if  not data or not 'username' in data or not 'password' in data:
 		abort(400)
 	users = db.users
@@ -81,7 +99,7 @@ def create_account():
 
 @app.route('/recipe-cards/api/v1.0/login/', methods=['POST'])
 def login():
-	data = request.json
+	data = request.form
 	if  not data or not 'username' in data or not 'password' in data: #needs real authentication
 		abort(400)
 	users = db.users
