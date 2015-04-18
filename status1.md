@@ -14,3 +14,7 @@
 * Have a rough login/register page
 * Have a rough recipe lookup page
 * Have a page to display a given recipe (in print format) 
+
+#Comments by Ming
+* Consider using a well accepted login system like FB, G+, Twitter, etc as you will be wasting your time writing your own login system
+* Consider having a Google Hangouts or Skype group call instead of meeting up in person if wacky schedule
