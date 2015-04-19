@@ -1,0 +1,25 @@
+body {
+    font-family: "proxima-nova", sans-serif;
+    color: #263248;
+}
+
+h1 {
+    font-family: "proxima-nova", sans-serif;
+    font-weight: 600;
+    font-size: 60px;
+    color: #7E8AA2;
+}
+
+h2 {
+    font-weight: 300;
+    font-size: 60px;
+    color: #FF9800;
+}
+
+h3 {
+    color: black;
+}
+
+p {
+    font-size: 18px;
+}
