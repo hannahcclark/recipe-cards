@@ -25,7 +25,7 @@ p {
     font-size: 18px;
 }
 
-.ingredients, .preparation {
+#ingredients, #preparation {
     font-size: 16px;
 }
 
@@ -33,7 +33,7 @@ li {
     padding-bottom: 8px;
 }
 
-.info {
+#info {
     font-weight: 700;
     padding-top: 16px;
     padding-bottom: 16px;
