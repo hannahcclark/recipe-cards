@@ -4,6 +4,7 @@
 * coordinated Javascript and HTML Ids and tags
 * Wrote login JS (95%)
 * Started on Display modal JS (10%)
+* Figured out cookies and server routes for filling in pages
 
 ##Challenges/Issues
 * User and password encryption
