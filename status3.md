@@ -7,10 +7,15 @@
 * Figured out cookies and server routes for filling in pages
 
 ##Challenges/Issues
-* User and password encryption
+* 
 * figuring out the best way to log in a user and maintain login
 * Again, actually being able to meet/work together 
 
 ##Goals for next week
 * Write JS for searching; linking scraping, database and display 
 * Incorperate Twillio API for texting
+
+#Comments by Ming
+* Twilio is fun to use
+* "User and password encryption" --why go there?  I say take this issue off your hands.
+* "linking scraping" --ew. Why?
