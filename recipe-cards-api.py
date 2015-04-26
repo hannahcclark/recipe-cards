@@ -3,6 +3,7 @@ from flask import abort
 from flask import make_response
 from flask import jsonify
 from flask import request
+from flask import render_template
 from pymongo import MongoClient
 import json
 from bson.objectid import ObjectId
@@ -39,7 +40,12 @@ def bad_credentials(error):
 
 @app.route('/')
 def index():
-	return "Hello, World!" #Temporary home page
+	return render_template('login.html') #Always logs in, change based on session
+
+@app.route('/recipes/<recipe_id>', methods=['GET'])
+def recipepage(recipe_id):
+	recipe = json.loads(get_recipe_by_id(recipe_id))['recipe']
+	return render_template('recipe.html', recipe=recipe)
 
 @app.route('/recipe-cards/api/v1.0/recipes/<recipe_id>', methods=['GET'])
 def get_recipe_by_id(recipe_id):

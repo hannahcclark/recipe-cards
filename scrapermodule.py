@@ -3,7 +3,6 @@ import urllib2
 
 def url_scraper(url):
 	scraper_fn = some_source_scraper
-	url = 'http://food52.com/recipes/30119-homemade-teriyaki-sauce'
 	page = urllib2.urlopen(url)
 	soup = BeautifulSoup(page.read())
 	#Given url as a string, give back the result of calling the correct source function
@@ -15,7 +14,9 @@ def some_source_scraper(url):
 	recipe = {'url': url, 'source':'some_source.com'}#replace with correct source
 	page = urllib2.urlopen(url)
 	soup = BeautifulSoup(page.read())
-	ingredients = soup.find_next('ul').find_all('li')
+	#food 52 itemprop="author"
+	#food network itemprop="name"
+	ingredients = soup.find_next('ul').find_all('li') #might not work - there are a lot of lists on any given page, need to know the class
 	steps = soup.find_next('ol').find_all('li')
 	stepstext = []
 	ingredtext = []
@@ -27,10 +28,6 @@ def some_source_scraper(url):
 	for ingred in ingredients:
 		ingredtext.append(ingred.text)
 	recipe['ingredients'] = ingredtext
-	recipe['steps'] = stepstext
-	recipe['title'] = soup.title.text
-	#do scraping
-	#insert name of recipe under key 'name'
-	#insert array of ingredients under 'ingredients'
-	#insert array of instructions under key 'directions'
+	recipe['directions'] = stepstext
+	recipe['name'] = soup.title.text
 	return recipe
