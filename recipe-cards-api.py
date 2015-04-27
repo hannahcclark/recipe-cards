@@ -5,6 +5,7 @@ from flask import jsonify
 from flask import request
 from flask import render_template
 from pymongo import MongoClient
+import bcrypt
 import json
 from bson.objectid import ObjectId
 import logging
@@ -100,17 +101,18 @@ def create_account():
 	users = db.users
 	is_user = users.find_one({"username":data['username']})
 	if is_user == None:
-		return json.dumps({'userid':users.insert({"username":data['username'], "password":data['password'], "recipes":[]})}, default=doc_encoder)
+		password = bcrypt.hashpw(data['password'].encode('UTF-8'), bcrypt.gensalt())
+		return json.dumps({'userid':users.insert({"username":data['username'], "password":password, "recipes":[]})}, default=doc_encoder)
 	abort(409)
 
 @app.route('/recipe-cards/api/v1.0/login/', methods=['POST'])
 def login():
 	data = request.form
-	if  not data or not 'username' in data or not 'password' in data: #needs real authentication
+	if  not data or not 'username' in data or not 'password' in data:
 		abort(400)
 	users = db.users
 	user = users.find_one({"username":data['username']})
-	if user == None:
+	if user == None or user['password'] != bcrypt.hashpw(data['password'].encode('UTF-8'), user['password'].encode('UTF-8')):
 		abort(422)
 	return json.dumps({'userid':user['_id']}, default=doc_encoder)
 
