@@ -1,7 +1,6 @@
 altgraph==0.10.2
 bcrypt==1.1.1
 bdist-mpkg==0.5.0
-bonjour-py==0.3
 cffi==0.9.2
 Flask==0.10.1
 gunicorn==19.3.0
