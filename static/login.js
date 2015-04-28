@@ -1,12 +1,12 @@
 $("document").ready(function () {
 		$("#login").submit(function(event){
-			var user = $("login-email").val();
-			var pass = $("login-password").val();
-			//entrypts user/password
-
-			$.post("url", function(data){
-				
-			});
+			event.preventDefault();
+			$.ajax({
+				url:"http://localhost:5000/login/", 
+				type: "POST",
+				data: $("form").serialize())
+				success: function(data, textStatus, jqXHR) {},
+    			error: function (jqXHR, textStatus, errorThrown){}
 		});
 
 });
