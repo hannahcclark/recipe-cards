@@ -43,3 +43,11 @@ li {
     margin-top: 16px;
     display: inline-block;
 }
+
+.modal.modal-wide .modal-dialog {
+  width: 95%;
+}
+.modal-wide .modal-body {
+  overflow-y: auto;
+}
+#tallModal .modal-body p { font-size: 72px;}
