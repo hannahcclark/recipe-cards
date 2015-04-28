@@ -69,9 +69,9 @@ def create_account():
 
 @app.route('/signout/')
 def signout():
-	if 'email' not in session:
+	if 'user' not in session:
 		return redirect(url_for('login'))
-	session.pop('email', None)
+	session.pop('user', None)
 	return redirect(url_for('login'))
 
 @app.route('/recipes/<recipe_id>/', methods=['GET'])
