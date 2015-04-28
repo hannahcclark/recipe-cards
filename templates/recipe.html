@@ -14,13 +14,14 @@
               href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" href=
               "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
         
         <!-- jQuery and Bootstrap plugins -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
         </script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
         </script>
+        <script src="../static/recipe.js"></script>
         
         <!-- Typekit -->
         <script src="//use.typekit.net/bbf2oko.js"></script>
@@ -79,7 +80,24 @@
             </div>
             
         </div>
-        
+        <!-- Remove after testing -->
+        <a data-toggle="modal" href="#tallModal" class="btn btn-primary">Wide, Tall Content</a>
+<div id="tallModal" class="modal modal-wide fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
     </body>
     
 </html>

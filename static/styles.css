@@ -38,3 +38,10 @@ li {
     padding-top: 16px;
     padding-bottom: 16px;
 }
+
+.modal.modal-wide .modal-dialog {
+  width: 95%;
+}
+.modal-wide .modal-body {
+  overflow-y: auto;
+}
