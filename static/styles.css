@@ -45,3 +45,4 @@ li {
 .modal-wide .modal-body {
   overflow-y: auto;
 }
+#tallModal .modal-body p { font-size: 72px;}
