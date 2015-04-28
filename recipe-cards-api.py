@@ -43,29 +43,30 @@ def login():
 		data = request.form
 		if  not data or not 'username' in data or not 'password' in data:
 			return render_template('login.html', error="A required field is empty")
+		elif 'button' in data and data['button'] == 'create':
+			return create_account()
 		users = db.users
 		user = users.find_one({"username":data['username']})
-		if user == None or user['password'] != bcrypt.hashpw(data['password'].encode('UTF-8'), user['password'].encode('UTF-8')):
-			return render_template('login.html', error="Invalid username or password")
+		if user == None:
+			return render_template('login.html', error="Invalid username")
+		elif user['password'] != bcrypt.hashpw(data['password'].encode('UTF-8'), user['password'].encode('UTF-8')):
+			return render_template('login.html', error="Invalid password")
 		session['user'] = str(user['_id'])
 		return redirect(url_for('index'))
 
-@app.route('/signup/', methods=['GET', 'POST'])
+@app.route('/signup/', methods=['POST'])
 def create_account():
-	if request.method == 'GET':
-		return render_template('login.html') #swap to signup
-	elif request.method == 'POST':
-		data = request.form
-		if  not data or not 'username' in data or not 'password' in data:
-			return render_template('login.html', error="A required field is empty")#swap to signup
-		users = db.users
-		is_user = users.find_one({"username":data['username']})
-		if is_user == None:
-			password = bcrypt.hashpw(data['password'].encode('UTF-8'), bcrypt.gensalt())
-			users.insert({"username":data['username'], "password":password, "recipes":[]})
-			session['user'] = str(user['_id'])
-			return redirect(url_for('index'))
-		return render_template('login.html', error="Username is already taken")#swap to signup.html
+	data = request.form
+	if  not data or not 'username' in data or not 'password' in data:
+		return render_template('login.html', error="A required field is empty")
+	users = db.users
+	is_user = users.find_one({"username":data['username']})
+	if is_user == None:
+		password = bcrypt.hashpw(data['password'].encode('UTF-8'), bcrypt.gensalt())
+		user = users.insert({"username":data['username'], "password":password, "recipes":[]})
+		session['user'] = str(user)
+		return redirect(url_for('index'))
+	return render_template('login.html', error="Username is already taken")
 
 @app.route('/signout/')
 def signout():
@@ -117,7 +118,7 @@ def recipe_from_url():
 	 	#recipe["_id"] = recipes.insert(recipe, default=doc_encoder)
 	recipeid = str(recipe["_id"])
 	users = db.users
-	user = users.find_one({"_id":ObjectId(str(data['userid']))})
+	user = users.find_one({"_id":ObjectId(str(session['user']))})
 	if user == None:
 		return render_template('index.html', error="An error occured with your account. Please try signing out and logging back in.")
 	users.update({'_id':user['_id']},{'$addToSet':{'recipes': recipeid}})
