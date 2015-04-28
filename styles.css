@@ -41,4 +41,5 @@ li {
 
 .alert {
     margin-top: 16px;
+    display: inline-block;
 }
