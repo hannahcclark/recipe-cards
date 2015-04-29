@@ -8,7 +8,8 @@
 	var sc = counter.toString();
 	var stepinc = counter+1;
 	$("div.modal-title").html("Step " + stepinc);
-	$("div.modal-body").html("<p>" + $("ol li").eq(counter).text() + "</p>");
+	$("div#ingreds").html($("ul#ingredients").html());
+	$("div#instructs").html("<p>" + $("ol li").eq(counter).text() + "</p>");
 	$(document).keydown(function(e){
 		console.log(e.which);
 		if (e.which == 75 || e.which==59 || e.which== 22 || e.which==47 
@@ -23,7 +24,7 @@
 				counter = (counter + 1) % $("ol li").length;
 				stepinc++;
 				$("div.modal-title").html("Step " + stepinc);
-				$("div.modal-body").html("<p>" + $("ol li").eq(counter).text() + "</p>");
+				$("div#instructs").html("<p>" + $("ol li").eq(counter).text() + "</p>");
 			}	
 		} 
 		else {
@@ -31,7 +32,7 @@
 				counter = (counter -1) % $("ol li").length;
 				stepinc--;
 				$("div.modal-title").html("Step " + stepinc);
-				$("div.modal-body").html("<p>" + $("ol li").eq(counter).text() + "</p>");
+				$("div#instructs").html("<p>" + $("ol li").eq(counter).text() + "</p>");
 			}
 		}
  		});
