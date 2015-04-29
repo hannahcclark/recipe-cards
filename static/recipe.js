@@ -1,6 +1,6 @@
-$(document).ready(function(){
+ $(document).ready(function(){
 	var listlength = $("ol#preparation li").length;
-	$(".modal-wide").on("show.bs.modal", function() {:
+	$(".modal-wide").on("show.bs.modal", function() {
 		var counter = 0;
 		var height = $(window).height() - 0;
 		$(this).find(".modal-body").css("max-height", height);
@@ -8,7 +8,7 @@ $(document).ready(function(){
 		var stepinc = counter+1;
 		$("div.modal-title").html("Step " + stepinc);
 		$("div#ingreds").html($("ul#ingredients").html());
-		$("div#instructs").html("<p>" + $("ol li").eq(counter).text() + "</p>");
+		$("div#instructs").html("<p>" + $("ol#preparation li").eq(counter).text() + "</p>");
 		$(document).keydown(function(e){
 			console.log(e.which);
 			if (e.which == 75 || e.which==59 || e.which== 22 || e.which==47 
@@ -20,18 +20,18 @@ $(document).ready(function(){
 				){
 				
 				if (stepinc < listlength){
-					counter = (counter + 1) % $("ol li").length;
+					counter++;
 					stepinc++;
 					$("div.modal-title").html("Step " + stepinc);
-					$("div#instructs").html("<p>" + $("ol li").eq(counter).text() + "</p>");
+					$("div#instructs").html("<p>" + $("ol#preparation li").eq(counter).text() + "</p>");
 				}	
 			} 
 			else {
 				if (stepinc > 1){
-					counter = (counter -1) % $("ol li").length;
+					counter--;
 					stepinc--;
 					$("div.modal-title").html("Step " + stepinc);
-					$("div#instructs").html("<p>" + $("ol li").eq(counter).text() + "</p>");
+					$("div#instructs").html("<p>" + $("ol#preparation li").eq(counter).text() + "</p>");
 				}
 			}
 	 	});
