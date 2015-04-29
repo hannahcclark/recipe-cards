@@ -36,4 +36,77 @@
 			}
 	 	});
 	});
+
+ 	$('#inclM').change(function() {
+ 		$("#locForm").toggle();
+	});
+
+ 	$("#sms").click(function(){
+ 		var phone = $("#phone").val();
+ 		if (!(phone === "")) {
+	 		if ($("#inclM").is(":checked")) {
+	 			if($("#locForm input[type='radio']:checked").val() === "geoloc") {
+	 				if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(function(position) {
+							getAddress(position.coords.latitude, position.coords.longitude,
+								function(add) {
+	 									sendSMS(stringifyIngredientList() + '\nMarket:\n' + add);
+	 								});
+						});
+					}
+	 				else {
+	 					console.log("should display error");
+	 				}
+	 			}
+	 			else {
+	 				console.log("lookup");
+	 				$.ajax('https://maps.googleapis.com/maps/api/geocode/json?address=' 
+	 						+ $("#address").val(),//urlencode
+	 				{
+	 					dataType:'json',
+	 					success: function(data) {
+	 						if (data.status === "OK") {
+	 							getAddress(data.results[0].geometry.location.lat, data.results[0].geometry.location.lng,
+	 								function(add) {
+	 									sendSMS(stringifyIngredientList() + '\nMarket:\n' + add);
+	 								});
+					 		}
+					 		else {
+					 			console.log("should display error");
+					 		}
+	 					},
+	 					error: function() {console.log("should display error");}
+	 				}
+	 				);
+	 			}
+	 		}
+	 		else {
+	 			sendSMS(stringifyIngredientList());
+	 		}
+	 	}
+	 	else {
+	 		console.log("should display error");
+	 	}
+ 	});
 });
+function stringifyIngredientList() {
+	var ret = "";
+	for (var i = 0; i < $("ol#preparation li").length; i++) {
+		ret = ret + $("ol#preparation li").eq(i).text() + "\n";
+	}
+	return ret;
+}
+
+function getAddress(lat, lng, callback) {
+	var request = {
+		location: new google.maps.LatLng(lat, lng),
+		radius: 20000,
+		types: ["grocery_or_supermarket"],
+		rankBy: google.maps.places.RankBy.DISTANCE
+	};
+	callback("hi");
+}
+
+function sendSMS(text) {
+	console.log(text);
+}

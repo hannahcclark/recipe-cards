@@ -15,14 +15,16 @@
         <link rel="stylesheet" href=
               "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
-        
+        <link rel="stylesheet" href="../static/styles.css">
         <!-- jQuery and Bootstrap plugins -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
         </script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
         </script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+        <script type="text/javascript" src="//static.twilio.com/libs/twiliojs/1.2/twilio.min.js"></script>
         <script src="{{url_for('static', filename='recipe.js')}}"></script>
-        
+        <script src="../static/recipe.js"></script>
         <!-- Typekit -->
         <script src="//use.typekit.net/bbf2oko.js"></script>
         <script>
@@ -82,6 +84,23 @@
         </div>
         <!-- Remove after testing -->
         <a data-toggle="modal" href="#tallModal" class="btn btn-primary">Wide, Tall Content</a>
+
+<div>
+    <h4>Send Ingredients List as a Text</h4>
+</div>
+<div>
+    <label for="phone">Phone Number</label>
+    <input type="text" placeholder="Enter Phone Number" id="phone"/> <br/>
+    <input type="checkbox" id="inclM"/> Include nearest market <br/>
+    <form id="locForm" class = "defHide">
+    <input type="radio" id="nearestN" name="nearest" value="geoloc" checked/> Nearest to me <br/>
+    <input type="radio" id="nearestL" name="nearest" value="address"/> Nearest to <input type="text" placeholder="Enter Address" id="address"/>
+    </form>
+</div>
+<div>
+    <button class="btn btn-default" id="sms">Send SMS</button>
+</div>
+
 <div id="tallModal" class="modal modal-wide fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -103,6 +122,6 @@
     </div><!-- /.modal-content -->
   </div> <!-- /.modal-dialog -->
 </div><!-- /.modal -->
-    </body>
+</body>
     
 </html>
