@@ -3,7 +3,7 @@
 	$(".modal-wide").on("show.bs.modal", function() {
 	
 	var counter = 0;
-	var height = $(window).height() - 200;
+	var height = $(window).height() - 0;
 	$(this).find(".modal-body").css("max-height", height);
 	var sc = counter.toString();
 	var stepinc = counter+1;
