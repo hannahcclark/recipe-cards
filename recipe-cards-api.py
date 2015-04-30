@@ -38,7 +38,7 @@ def login():
 		return render_template('login.html')
 	elif request.method == 'POST':
 		data = request.form
-		if  not data or not 'username' in data or not 'password' in data:
+		if  not data or not 'username' in data or data['username'] =='' or not 'password' in data or data['password'] =='':
 			return render_template('login.html', error="A required field is empty")
 		elif 'button' in data and data['button'] == 'create':
 			return create_account()
@@ -54,7 +54,7 @@ def login():
 @app.route('/signup/', methods=['POST'])
 def create_account():
 	data = request.form
-	if  not data or not 'username' in data or not 'password' in data:
+	if  not data or not 'username' in data or data['username'] =='' or not 'password' in data or data['password'] =='':
 		return render_template('login.html', error="A required field is empty")
 	users = db.users
 	is_user = users.find_one({"username":data['username']})
@@ -80,8 +80,8 @@ def recipepage(recipe_id):
 @app.route('/recipe-by-url/', methods=['POST'])
 def recipe_by_url():
 	data = request.form
-	if not data or not 'url' in data or not 'user' in session:
-		return render_template('index.html', error="A url is required")
+	if not data or not 'url' in data or data['url']=='' or not 'user' in session:
+		return render_template('index.html', error="A URL is required")
 	recipes = db.recipes
 	recipe = recipes.find_one({"url":data['url']})
 	if recipe == None:
@@ -111,7 +111,6 @@ def get_recipe_by_id(recipe_id):
 def sendSMS():
 	data = request.form
 	if not data or not 'phone' in data or not 'msg' in data:
-		print 'hi'
 		return make_response(jsonify({'error': 'Request not properly formed'}), 404)
 	key = os.environ['TWILIO_API']
 	secret = os.environ['TWILIO_SECRET']
@@ -139,5 +138,6 @@ def get_recipes_by_user(user_id):
 	for recipe in recipes:
 	 	recipe_list.append({"_id":str(recipe["_id"]),"name":recipe["name"]})
 	return recipe_list
+
 if __name__ == '__main__': 
 	app.run()
