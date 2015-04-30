@@ -1,9 +1,10 @@
 from flask import Flask, abort, make_response, jsonify, request, render_template, session, url_for, redirect
 from pymongo import MongoClient
+import os
 import bcrypt
 import json
 from bson.objectid import ObjectId
-import logging
+from twilio.rest import TwilioRestClient 
 
 #http://stackoverflow.com/questions/19877903/using-mongo-with-flask-and-python used to resolve issue with objectids and json
 
@@ -15,18 +16,14 @@ connection = MongoClient("ds031701.mongolab.com", 31701)
 db = connection["recipe-cards-db"]
 db.authenticate("admin", "password")
 
+@app.errorhandler(500)
+def bad_params(error):
+    return make_response(jsonify({error: error}), 500)
+
 def doc_encoder(o):
     if type(o) == ObjectId:
         return str(o)
     return o.__str__
-
-@app.errorhandler(400)
-def bad_params(error):
-    return make_response(jsonify({'error': 'Request not properly formed'}), 400)
-
-@app.errorhandler(404)
-def not_found(error):
-    return make_response(jsonify({'error': 'Not found'}), 404)
 
 @app.route('/')
 def index():
@@ -77,36 +74,10 @@ def signout():
 
 @app.route('/recipes/<recipe_id>/', methods=['GET'])
 def recipepage(recipe_id):
-	recipe = json.loads(get_recipe_by_id(recipe_id))['recipe']
+	recipe = json.loads(get_recipe_by_id(recipe_id))
 	return render_template('recipe.html', recipe=recipe)
 
-@app.route('/recipe-cards/api/v1.0/recipes/<recipe_id>/', methods=['GET'])
-def get_recipe_by_id(recipe_id):
-	recipes = db.recipes
-	try:
-		recipe = recipes.find_one({"_id":ObjectId(str(recipe_id))})
-	except:
-		abort(404)
-	if recipe == None:
-	 	abort(404)
-	return json.dumps({'recipe':recipe}, default=doc_encoder) #replace with one that does not give back objid
-
-def get_recipes_by_user(user_id):
-	users = db.users
-	try:
-		user = users.find_one({"_id":ObjectId(str(user_id))})
-	except:
-		abort(404)
-	if user == None:
-	 	abort(404)
-	recipeList = map(lambda x: ObjectId(x), user['recipes'])
-	recipes = db.recipes.find({"_id":{"$in": recipeList}})
-	recipeList = []
-	for recipe in recipes:
-	 	recipeList.append({"_id":str(recipe["_id"]),"name":recipe["name"]})
-	return recipeList
-
-@app.route('/recipe-cards/api/v1.0/recipes/recipe-by-url/', methods=['POST'])
+@app.route('/recipe-by-url/', methods=['POST'])
 def recipe_from_url():
 	data = request.form
 	if not data or not 'url' in data or not 'user' in session:
@@ -124,5 +95,48 @@ def recipe_from_url():
 	users.update({'_id':user['_id']},{'$addToSet':{'recipes': recipeid}})
 	return redirect(url_for('recipes/' + recipeid))
 
+@app.route('/recipe-cards/api/v1.0/recipes/<recipe_id>/', methods=['GET'])
+def get_recipe_by_id(recipe_id):
+	recipes = db.recipes
+	try:
+		recipe = recipes.find_one({"_id":ObjectId(str(recipe_id))})
+	except:
+		return make_response(jsonify({'error': 'Request not properly formed'}), 404)
+	if recipe == None:
+	 	return make_response(jsonify({'error': 'Request not properly formed'}), 404)
+	return json.dumps(recipe, default=doc_encoder)
+
+
+@app.route('/sendSMS/', methods=['POST'])
+def sendSMS():
+	data = request.form
+	if not data or not 'phone' in data or not 'msg' in data:
+		return make_response(jsonify({'error': 'Request not properly formed'}), 404)
+	key = os.environ['TWILIO_API']
+	secret = os.environ['TWILIO_SECRET']
+	from_num = "+18604847973"
+	client = TwilioRestClient(key, secret) 
+	req = client.messages.create(
+		to=data['phone'], 
+		from_=from_num, 
+		body=data['msg'],  
+	)
+	print req.status
+	return jsonify(success = True)
+
+def get_recipes_by_user(user_id):
+	users = db.users
+	try:
+		user = users.find_one({"_id":ObjectId(str(user_id))})
+	except:
+		abort(404)
+	if user == None:
+	 	abort(404)
+	recipe_list = map(lambda x: ObjectId(x), user['recipes'])
+	recipes = db.recipes.find({"_id":{"$in": recipeList}})
+	recipe_list = []
+	for recipe in recipes:
+	 	recipe_list.append({"_id":str(recipe["_id"]),"name":recipe["name"]})
+	return recipe_list
 if __name__ == '__main__': 
 	app.run()
