@@ -82,16 +82,15 @@ def recipe_by_url():
 	data = request.form
 	if not data or not 'url' in data or data['url']=='' or not 'user' in session:
 		return render_template('index.html', error="A URL is required")
+	users = db.users
+	user = users.find_one({"_id":ObjectId(str(session['user']))})
+	if user == None:
 	recipes = db.recipes
 	recipe = recipes.find_one({"url":data['url']})
 	if recipe == None:
 	 	abort(404) #replace with code to scrape and insert
-	 	#recipe["_id"] = recipes.insert(recipe, default=doc_encoder)
+	 	#recipe["_id"] = recipes.insert(recipe)
 	recipeid = str(recipe["_id"])
-	users = db.users
-	user = users.find_one({"_id":ObjectId(str(session['user']))})
-	if user == None:
-		return render_template('index.html', error="An error occured with your account. Please try signing out and logging back in.")
 	users.update({'_id':user['_id']},{'$addToSet':{'recipes': recipeid}})
 	return redirect(url_for('recipepage', recipe_id=recipeid))
 
