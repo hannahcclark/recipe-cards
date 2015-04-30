@@ -54,11 +54,9 @@
                 <div class="col-xs-4" id="source">
                     <p class="text-center">From <a href="{{recipe.url}}">{{recipe.source}}</a></p>
                 </div>
-                <div class="col-xs-4" id="cooking-time">
-                    <p class="text-center">3 1/2 hours</p>
-                </div>
-                <div class="col-xs-4" id="servings">
-                    <p class="text-center">6 to 8 servings</p>
+                
+                <div class="col-xs-4 col-xs-offset-4" id="servings">
+                    <p class="text-center"><a data-toggle="modal" href="#tallModal" class="btn btn-primary">Cooking view</a></p>
                 </div>
             </div>
 
@@ -80,15 +78,13 @@
                     </ol>
                 </div>
             </div>
-            
-        </div>
-        <!-- Remove after testing -->
-        <a data-toggle="modal" href="#tallModal" class="btn btn-primary">Wide, Tall Content</a>
-
-<div>
+            <div class="row">
+            <div class="col-xs-4 col-xs-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
     <h4>Send Ingredients List as a Text</h4>
-</div>
-<div>
+</div> <!-- panel heading end-->
+<div class="panel-body">
     <label for="phone">Phone Number</label>
     <input type="text" placeholder="Enter Phone Number" id="phone"/> <br/>
     <input type="checkbox" id="inclM"/> Include nearest market <br/>
@@ -96,12 +92,21 @@
     <input type="radio" id="nearestN" name="nearest" value="geoloc" checked/> Nearest to me <br/>
     <input type="radio" id="nearestL" name="nearest" value="address"/> Nearest to <input type="text" placeholder="Enter Address" id="address"/>
     </form>
-</div>
-<div>
+
+
     <button class="btn btn-default" id="sms">Send SMS</button>
-</div>
+
 <div id="map">
 </div>
+</div>
+</div> <!-- panel end-->
+</div> <!-- col end-->
+</div><!--row end-->
+        </div> <!-- container end-->
+
+        
+
+
 <div id="tallModal" class="modal modal-wide fade">
   <div class="modal-dialog">
     <div class="modal-content">
