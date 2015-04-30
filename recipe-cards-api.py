@@ -78,7 +78,7 @@ def recipepage(recipe_id):
 	return render_template('recipe.html', recipe=recipe)
 
 @app.route('/recipe-by-url/', methods=['POST'])
-def recipe_from_url():
+def recipe_by_url():
 	data = request.form
 	if not data or not 'url' in data or not 'user' in session:
 		return render_template('index.html', error="A url is required")
@@ -93,7 +93,7 @@ def recipe_from_url():
 	if user == None:
 		return render_template('index.html', error="An error occured with your account. Please try signing out and logging back in.")
 	users.update({'_id':user['_id']},{'$addToSet':{'recipes': recipeid}})
-	return redirect(url_for('recipes/' + recipeid))
+	return redirect(url_for('recipepage', recipe_id=recipeid))
 
 @app.route('/recipe-cards/api/v1.0/recipes/<recipe_id>/', methods=['GET'])
 def get_recipe_by_id(recipe_id):
@@ -133,7 +133,7 @@ def get_recipes_by_user(user_id):
 	if user == None:
 	 	abort(404)
 	recipe_list = map(lambda x: ObjectId(x), user['recipes'])
-	recipes = db.recipes.find({"_id":{"$in": recipeList}})
+	recipes = db.recipes.find({"_id":{"$in": recipe_list}})
 	recipe_list = []
 	for recipe in recipes:
 	 	recipe_list.append({"_id":str(recipe["_id"]),"name":recipe["name"]})
