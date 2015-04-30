@@ -1,0 +1,128 @@
+<html lang="en">
+    
+    <head>
+        
+        <!-- These must come first -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>{{recipe.name}}</title>
+        
+        <!-- Bootstrap and custom styles -->
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href=
+              "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+
+        <!-- jQuery and Bootstrap plugins -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+        </script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+        <script type="text/javascript" src="//static.twilio.com/libs/twiliojs/1.2/twilio.min.js"></script>
+        <script src="{{url_for('static', filename='recipe.js')}}"></script>
+
+        <!-- Typekit -->
+        <script src="//use.typekit.net/bbf2oko.js"></script>
+        <script>
+            try {
+                Typekit.load();
+            } catch(e) {}
+        </script>
+        
+    </head>
+    
+    <body>
+        
+        <div class="container">
+        
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h1 id="title">{{recipe.name}}</h1>
+                    </div>
+                    <div class="col-md-5">
+                        <h2 class="text-right" id="author">{{recipe.author}}</h2>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row" id="info">
+                <div class="col-xs-4" id="source">
+                    <p class="text-center">From <a href="{{recipe.url}}">{{recipe.source}}</a></p>
+                </div>
+                <div class="col-xs-4" id="cooking-time">
+                    <p class="text-center">3 1/2 hours</p>
+                </div>
+                <div class="col-xs-4" id="servings">
+                    <p class="text-center">6 to 8 servings</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5">
+                    <h3>Ingredients</h3>
+                    <ul id="ingredients">
+                        {% for i in recipe.ingredients %}
+                        <li>{{i}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-sm-7">
+                    <h3>Preparation</h3>
+                    <ol id="preparation">
+                        {% for d in recipe.directions %}
+                        <li>{{d}}</li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+            
+        </div>
+        <!-- Remove after testing -->
+        <a data-toggle="modal" href="#tallModal" class="btn btn-primary">Wide, Tall Content</a>
+
+<div>
+    <h4>Send Ingredients List as a Text</h4>
+</div>
+<div>
+    <label for="phone">Phone Number</label>
+    <input type="text" placeholder="Enter Phone Number" id="phone"/> <br/>
+    <input type="checkbox" id="inclM"/> Include nearest market <br/>
+    <form id="locForm" class = "defHide">
+    <input type="radio" id="nearestN" name="nearest" value="geoloc" checked/> Nearest to me <br/>
+    <input type="radio" id="nearestL" name="nearest" value="address"/> Nearest to <input type="text" placeholder="Enter Address" id="address"/>
+    </form>
+</div>
+<div>
+    <button class="btn btn-default" id="sms">Send SMS</button>
+</div>
+<div id="map">
+</div>
+<div id="tallModal" class="modal modal-wide fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div class="modal-title" id="modal-title"></div>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2" id="ingreds"></div>
+                <div class="col-sm-9 col-sm-offset-1" id="instructs"></div>
+            </div><!--end row-->
+        </div><!--modal body end-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div> <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</body>
+    
+</html>
