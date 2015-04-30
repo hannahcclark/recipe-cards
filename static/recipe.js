@@ -1,5 +1,8 @@
  $(document).ready(function(){
 	var listlength = $("ol#preparation li").length;
+	$(".panel-heading").click(function(){
+		$(".panel-body").toggle();
+	});
 	$(".modal-wide").on("show.bs.modal", function() {
 		var counter = 0;
 		var height = $(window).height() - 0;
@@ -9,6 +12,25 @@
 		$("div.modal-title").html("Step " + stepinc);
 		$("div#ingreds").html($("ul#ingredients").html());
 		$("div#instructs").html("<p>" + $("ol#preparation li").eq(counter).text() + "</p>");
+		$("#nextbutton").click(function(){
+			if (stepinc < listlength){
+					counter++;
+					stepinc++;
+					$("div.modal-title").html("Step " + stepinc);
+					$("div#instructs").html("<p>" + $("ol#preparation li").eq(counter).text() + "</p>");
+				}
+		});
+		$("#backbutton").click(function(){
+			if (stepinc > 1){
+					counter--;
+					stepinc--;
+					$("div.modal-title").html("Step " + stepinc);
+					$("div#instructs").html("<p>" + $("ol#preparation li").eq(counter).text() + "</p>");
+				}
+		});
+		$("#toggleingredients").click(function(){
+			$("#ingreds").toggle();
+		});
 		$(document).keydown(function(e){
 			if (e.which == 75 || e.which==59 || e.which== 22 || e.which==47 
 				|| e.which == 46 || e.which == 74 || e.which == 39 || e.which == 92

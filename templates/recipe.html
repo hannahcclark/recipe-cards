@@ -84,13 +84,13 @@
                     <div class="panel-heading">
     <h4>Send Ingredients List as a Text</h4>
 </div> <!-- panel heading end-->
-<div class="panel-body">
+<div class="panel-body defHide">
     <label for="phone">Phone Number</label>
-    <input type="text" placeholder="Enter Phone Number" id="phone"/> <br/>
+    <input type="text" class="form-control" placeholder="Enter Phone Number" id="phone"/> <br/>
     <input type="checkbox" id="inclM"/> Include nearest market <br/>
     <form id="locForm" class = "defHide">
     <input type="radio" id="nearestN" name="nearest" value="geoloc" checked/> Nearest to me <br/>
-    <input type="radio" id="nearestL" name="nearest" value="address"/> Nearest to <input type="text" placeholder="Enter Address" id="address"/>
+    <input type="radio" id="nearestL" name="nearest" value="address"/> Nearest to <input type="text" class="form-control" placeholder="Enter Address" id="address"/>
     </form>
 
 
@@ -117,13 +117,17 @@
       <div class="modal-body">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-2" id="ingreds"></div>
+
+                <div class="col-sm-2" >
+                    <div id="ingreds"></div><button type="button" class="btn btn-default" id="toggleingredients">Toggle Ingredients</button></div>
                 <div class="col-sm-9 col-sm-offset-1" id="instructs"></div>
             </div><!--end row-->
         </div><!--modal body end-->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+        <button type="button" class="btn btn-default" id="backbutton">Back</button>
+        <button type="button" class="btn btn-default" id="nextbutton">Next</button>
       </div>
     </div><!-- /.modal-content -->
   </div> <!-- /.modal-dialog -->
