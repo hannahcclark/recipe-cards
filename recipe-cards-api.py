@@ -111,6 +111,7 @@ def get_recipe_by_id(recipe_id):
 def sendSMS():
 	data = request.form
 	if not data or not 'phone' in data or not 'msg' in data:
+		print 'hi'
 		return make_response(jsonify({'error': 'Request not properly formed'}), 404)
 	key = os.environ['TWILIO_API']
 	secret = os.environ['TWILIO_SECRET']

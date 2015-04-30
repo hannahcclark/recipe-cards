@@ -41,8 +41,8 @@
 	});
 
  	$("#sms").click(function(){
- 		var phone = $("#phone").val();
- 		if (!(phone === "")) {
+
+ 		if (!($("#phone").val() === "")) {
 	 		if ($("#inclM").is(":checked")) {
 	 			if($("#locForm input[type='radio']:checked").val() === "geoloc") {
 	 				if (navigator.geolocation) {
@@ -88,7 +88,7 @@
  	});
 });
 function stringifyIngredientList() {
-	var ret = "";
+	var ret = "\n";
 	for (var i = 0; i < $("ul#ingredients li").length; i++) {
 		ret = ret + $("ul#ingredients li").eq(i).text() + "\n";
 	}
@@ -122,5 +122,7 @@ function getAddress(lat, lng, callback) {
 }
 
 function sendSMS(text) {
-	console.log(text);
+	var phone = $("#phone").val();
+	$.post("/sendSMS/", {'msg':text, 'phone':phone},
+		function(data){console.log('success')});
 }
