@@ -1,36 +1,50 @@
 from bs4 import BeautifulSoup
 import urllib2
+import re
 
 def url_scraper(url):
-	scraper_fn = some_source_scraper
-	url = 'http://food52.com/recipes/30119-homemade-teriyaki-sauce'
-	page = urllib2.urlopen(url)
-	soup = BeautifulSoup(page.read())
-	#Given url as a string, give back the result of calling the correct source function
-	#either throw exception or give back a dictionary indicating an error
-	#if source doesn't have a scraper
-	return scraper_fn(url)
+	return some_source_scraper(url)
 
 def some_source_scraper(url):
-	recipe = {'url': url, 'source':'some_source.com'}#replace with correct source
+	recipe = {'url': url}
 	page = urllib2.urlopen(url)
 	soup = BeautifulSoup(page.read())
-	ingredients = soup.find_next('ul').find_all('li')
-	steps = soup.find_next('ol').find_all('li')
-	stepstext = []
+	
+	#get source
+	recipe['source'] = get_source_site(url)
+
+	#get title 
+	recipe['name'] = soup.title.text
+
+	#get author
+	author = soup.find_all('a', class_="author personality")
+	recipe['author'] = author[0].text.replace('\n','')
+
+	#get servings
+
+	#get time
+
+	#get ingredients
+	ingredients = soup.find_all('ul', class_="recipe-ingredients")
 	ingredtext = []
-	title = soup.title.string
-
-	for step in steps:
-		stepstext.append(step.text)
-
 	for ingred in ingredients:
-		ingredtext.append(ingred.text)
+		curr_ingred = ingred.text.replace('\n','')
+		ingredtext.append(curr_ingred)
 	recipe['ingredients'] = ingredtext
-	recipe['steps'] = stepstext
-	recipe['title'] = soup.title.text
-	#do scraping
-	#insert name of recipe under key 'name'
-	#insert array of ingredients under 'ingredients'
-	#insert array of instructions under key 'directions'
+
+	#get directions
+	steps = soup.find_all('ol', class_="recipe-steps")
+	stepstext = []
+	for step in steps:
+		curr_step = step.text.replace('\n',' ')
+		stepstext.append(curr_step)
+	recipe['directions'] = stepstext
+
 	return recipe
+
+def get_source_site(url):
+	result = re.search('://(.*)/recipes', url)
+	return result.group(1)
+
+
+
