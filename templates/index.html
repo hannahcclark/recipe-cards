@@ -1,19 +1,22 @@
-<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     
-    <title>Recipe Cards</title>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet"
+    <head>
+        
+        <!-- These must come first -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>Recipes</title>
+        
+        <!-- Bootstrap and custom styles -->
+        <link rel="stylesheet"
               href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" href=
               "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+        
+        <!-- jQuery and Bootstrap plugins -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
         </script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
@@ -26,71 +29,58 @@
                 Typekit.load();
             } catch(e) {}
         </script>
+<<<<<<< HEAD
   </head>
 
   <body>
+=======
+        
+    </head>
+    
+    <body>
+        
+        <div class="container">
+        
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h1 id="title">Recipe Box</h1>
+                    </div>
+                    <div class="col-md-5">
+                        <h2 class="text-right">Recipes</h2>
+                    </div>
+                </div>
+            </div>
+            
+            <form class="form-inline text-center" id="urlsearch"
+                  action="{{ url_for('recipe_by_url') }}" method=post>
+                <input type="text" class="form-control inline-wide" name="url"
+                       placeholder="Paste the link to your recipe here">
+                <button class="btn btn-default" id="submitbtn" type="submit">Go!</button>
+            </form>
+            {% for recipe in recipes %}
+            <p class="text-center">
+                <a href="{{url_for('recipepage', recipe_id=recipe.id)}}">{{recipe.name}}</a> from
+                <a href="http://{{recipe.source}}">{{recipe.source}}</a>
+            </p>
+            {% endfor %}
+            <p>
+                We can get recipes from:
+            </p>
+>>>>>>> 4ceb23c03b4683eb51a763148487f1f74ce430fb
 
-<div class="container">
-      <div class = "row"></div>
-      <div class="row">
-      <div class = "col-lg-8 col-lg-offset-2">
-        <div class="input-group input-group-lg">
-          <form id="urlsearch" action="{{ url_for('recipe_by_url') }}" method=post>
-            <input type="text" class="form-control" name="url" placeholder="Paste the link to your recipe here...">
-            <span class="input-group-btn">
-              <button class="btn btn-default" id="submitbtn" type="submit">Go!</button>
-            </span>
-          </form>
-        </div>
-      </div>
-    </div>
-</div>
-<br>
-<div class = "container">
-  <div class ="row">
-    <div class = "col-lg-2 col-lg-offset-5"
-<div id="storedrecepies"></div>
-</div>
-<br>
-<div class="container text-center" id="footercont">
-    <hr />
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="col-md-3">
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="#">Blog</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="#">Github</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="#">Mobile view</a></li>
-         
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="#">Tufts CS</a></li>
-        </ul>
-      </div>  
-    </div>
-  </div>
-  <hr>
-    <div class="row">
-        <div class="col-lg-12">
-            <ul class="nav nav-pills nav-justified">
-                <li><a href="/">© 2015 TeamSpooky</a></li>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Privacy</a></li>
+            <ul id="sites">
+                <li><a href="http://www.epicurious.com">Epicurious</a></li>
+                <li><a href="http://cooking.nytimes.com">New York Times Cooking</a></li>
             </ul>
+            
+            <div class="text-right">
+                <form action="{{ url_for('signout') }}">
+                <button class="btn btn-default" id="logout" type="submit">Logout</button>
+            </form>
+            </div>
         </div>
-    </div>
-</div>
-
-
-  </body>
+        
+    </body>
+    
 </html>
