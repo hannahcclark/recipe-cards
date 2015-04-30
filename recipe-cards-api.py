@@ -136,7 +136,7 @@ def get_recipes_by_user(user_id):
 	recipes = db.recipes.find({"_id":{"$in": recipe_list}})
 	recipe_list = []
 	for recipe in recipes:
-	 	recipe_list.append({"_id":str(recipe["_id"]),"name":recipe["name"]})
+	 	recipe_list.append({"id":str(recipe["_id"]),"name":recipe["name"], "source":recipe["source"]})
 	return recipe_list
 
 if __name__ == '__main__': 
