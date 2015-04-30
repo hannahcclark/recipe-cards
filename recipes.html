@@ -1,0 +1,83 @@
+<html lang="en">
+    
+    <head>
+        
+        <!-- These must come first -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>Recipes</title>
+        
+        <!-- Bootstrap and custom styles -->
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href=
+              "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="static/styles.css">
+        
+        <!-- jQuery and Bootstrap plugins -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+        </script>
+        
+        <!-- Typekit -->
+        <script src="//use.typekit.net/bbf2oko.js"></script>
+        <script>
+            try {
+                Typekit.load();
+            } catch(e) {}
+        </script>
+        
+    </head>
+    
+    <body>
+        
+        <div class="container">
+        
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h1 id="title">Recipe Box</h1>
+                    </div>
+                    <div class="col-md-5">
+                        <h2 class="text-right">Recipes</h2>
+                    </div>
+                </div>
+            </div>
+            
+            <form class="form-inline text-center" id="urlsearch"
+                  action="{{ url_for('recipe_by_url') }}" method=post>
+                <input type="text" class="form-control inline-wide" name="url"
+                       placeholder="Paste the link to your recipe here">
+                <button class="btn btn-default" id="submitbtn" type="submit">Go!</button>
+            </form>
+
+            <p class="text-center">
+                <a href="https://www.google.com">Omelette du Fromage</a> from
+                <a href="https://www.google.com">www.epicurious.com</a>
+            </p>
+
+            <p class="text-center">
+                <a href="https://www.google.com">Cheese Omelette</a> from
+                <a href="https://www.google.com">www.allrecipes.com</a>
+            </p>
+
+            <p>
+                We can get recipes from:
+            </p>
+
+            <ul id="sites">
+                <li>Heaweo;fijaw;eoifj</li>
+                <li>a;soijfewo</li>
+            </ul>
+            
+            <div class="text-right">
+                <button class="btn btn-default" id="logout" type="button">Logout</button>
+            </div>
+        </div>
+        
+    </body>
+    
+</html>
