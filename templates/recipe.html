@@ -21,8 +21,10 @@
         </script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
         </script>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
-        <script type="text/javascript" src="//static.twilio.com/libs/twiliojs/1.2/twilio.min.js"></script>
+        <script type="text/javascript"
+                src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+        <script type="text/javascript"
+                src="//static.twilio.com/libs/twiliojs/1.2/twilio.min.js"></script>
         <script src="{{url_for('static', filename='recipe.js')}}"></script>
 
         <!-- Typekit -->
@@ -51,11 +53,13 @@
             </div>
             
             <div class="row" id="info">
-                <div class="col-xs-4" id="source">
-                    <p class="text-center">From <a href="{{recipe.url}}">{{recipe.source}}</a></p>
-                </div>
                 <div class="col-xs-4" id="cooking-time">
                     <p class="text-center">3 1/2 hours</p>
+                </div>
+                <div class="col-xs-4" id="source">
+                    <p class="text-center">
+                        From <a href="{{recipe.url}}">{{recipe.source}}</a>
+                    </p>
                 </div>
                 <div class="col-xs-4" id="servings">
                     <p class="text-center">6 to 8 servings</p>
