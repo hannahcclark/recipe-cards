@@ -15,7 +15,7 @@
 				|| e.which == 39 || e.which == 40 || e.which == 44 || e.which == 222
 				|| e.which == 77 || e.which == 78 || e.which == 76 || e.which == 73 
 				|| e.which == 85 || e.which == 79 || e.which == 80 || e.which == 91
-				|| e.which == 93 || e.which == 10 || e.which == 16 || e.which == 32
+				|| e.which == 93 || e.which == 10 || e.which == 16
 				){
 				
 				if (stepinc < listlength){
@@ -25,6 +25,9 @@
 					$("div#instructs").html("<p>" + $("ol#preparation li").eq(counter).text() + "</p>");
 				}	
 			} 
+			else if (e.which == 32) {
+				$("#ingreds").toggle();
+			}
 			else {
 				if (stepinc > 1){
 					counter--;
