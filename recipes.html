@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <title>Pasta alla Genovese</title>
+        <title>Recipes</title>
         
         <!-- Bootstrap and custom styles -->
         <link rel="stylesheet"
@@ -47,14 +47,35 @@
                 </div>
             </div>
             
-            <ul id="recipes">
-                <li><a href="https://www.google.com">Hello, world!</a></li>
-                <li><a href="https://www.google.com">Hello, world!</a></li>
-                <li><a href="https://www.google.com">Hello, world!</a></li>
-                <li><a href="https://www.google.com">Hello, world!</a></li>
-                <li><a href="https://www.google.com">Hello, world!</a></li>
+            <form class="form-inline text-center" id="urlsearch"
+                  action="{{ url_for('recipe_by_url') }}" method=post>
+                <input type="text" class="form-control inline-wide" name="url"
+                       placeholder="Paste the link to your recipe here">
+                <button class="btn btn-default" id="submitbtn" type="submit">Go!</button>
+            </form>
+
+            <p class="text-center">
+                <a href="https://www.google.com">Omelette du Fromage</a> from
+                <a href="https://www.google.com">www.epicurious.com</a>
+            </p>
+
+            <p class="text-center">
+                <a href="https://www.google.com">Cheese Omelette</a> from
+                <a href="https://www.google.com">www.allrecipes.com</a>
+            </p>
+
+            <p>
+                We can get recipes from:
+            </p>
+
+            <ul id="sites">
+                <li>Heaweo;fijaw;eoifj</li>
+                <li>a;soijfewo</li>
             </ul>
             
+            <div class="text-right">
+                <button class="btn btn-default" id="logout" type="button">Logout</button>
+            </div>
         </div>
         
     </body>
