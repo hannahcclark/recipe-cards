@@ -81,7 +81,8 @@ def recipepage(recipe_id):
 def recipe_by_url():
 	data = request.form
 	if not data or not 'url' in data or data['url']=='' or not 'user' in session:
-		return render_template('index.html', error="A URL is required")
+		recipes = get_recipes_by_user(session['user'])
+	 	return render_template('index.html', recipes = recipes, error="A URL is required")
 	users = db.users
 	user = users.find_one({"_id":ObjectId(str(session['user']))})
 	if user == None:
@@ -91,7 +92,8 @@ def recipe_by_url():
 	if recipe == None:
 	 	recipe = url_scraper(data['url'])
 	 	if 'error' in recipe:
-	 		return render_template('index.html', error="We were unable to get a recipe from the provided url")
+			recipes = get_recipes_by_user(session['user'])
+	 		return render_template('index.html', recipes = recipes, error="We were unable to get a recipe from the provided url")
 	 	recipe["_id"] = recipes.insert(recipe)
 	recipeid = str(recipe["_id"])
 	users.update({'_id':user['_id']},{'$addToSet':{'recipes': recipeid}})
