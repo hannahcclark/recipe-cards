@@ -21,7 +21,7 @@ def some_source_scraper(url):
 	recipe['author'] = author[0].text.replace('\n','')
 
 	#get ingredients
-	ingredients = soup.find_all('ul', class_="recipe-ingredients").find_next('li')
+	ingredients = soup.find('ul', class_="recipe-ingredients").find_all('li')
 	ingredtext = []
 	for ingred in ingredients:
 		curr_ingred = ingred.text.replace('\n','')
@@ -29,11 +29,11 @@ def some_source_scraper(url):
 	recipe['ingredients'] = ingredtext
 
 	#get directions
-	steps = soup.find_all('ol', class_="recipe-steps").find_next('li')
+	steps = soup.find('ol', class_="recipe-steps").findChildren()
 	stepstext = []
 	for step in steps:
-		curr_step = step.text.replace('\n',' ')
-		stepstext.append(curr_step)
+	 	curr_step = step.text.replace('\n',' ')
+	 	stepstext.append(curr_step)
 	recipe['directions'] = stepstext
 
 	return recipe
