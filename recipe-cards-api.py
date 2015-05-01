@@ -5,7 +5,7 @@ import bcrypt
 import json
 from bson.objectid import ObjectId
 from twilio.rest import TwilioRestClient 
-
+from scrapermodule import url_scraper
 #http://stackoverflow.com/questions/19877903/using-mongo-with-flask-and-python used to resolve issue with objectids and json
 
 app = Flask(__name__)
@@ -82,16 +82,18 @@ def recipe_by_url():
 	data = request.form
 	if not data or not 'url' in data or data['url']=='' or not 'user' in session:
 		return render_template('index.html', error="A URL is required")
-	recipes = db.recipes
-	recipe = recipes.find_one({"url":data['url']})
-	if recipe == None:
-	 	abort(404) #replace with code to scrape and insert
-	 	#recipe["_id"] = recipes.insert(recipe, default=doc_encoder)
-	recipeid = str(recipe["_id"])
 	users = db.users
 	user = users.find_one({"_id":ObjectId(str(session['user']))})
 	if user == None:
 		return render_template('index.html', error="An error occured with your account. Please try signing out and logging back in.")
+	recipes = db.recipes
+	recipe = recipes.find_one({"url":data['url']})
+	if recipe == None:
+	 	recipe = url_scraper(data['url'])
+	 	if 'error' in recipe:
+	 		return render_template('index.html', error="We were unable to get a recipe from the provided url")
+	 	recipe["_id"] = recipes.insert(recipe)
+	recipeid = str(recipe["_id"])
 	users.update({'_id':user['_id']},{'$addToSet':{'recipes': recipeid}})
 	return redirect(url_for('recipepage', recipe_id=recipeid))
 
@@ -121,7 +123,6 @@ def sendSMS():
 		from_=from_num, 
 		body=data['msg'],  
 	)
-	print req.status
 	return jsonify(success = True)
 
 def get_recipes_by_user(user_id):
