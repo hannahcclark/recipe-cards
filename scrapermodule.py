@@ -6,13 +6,24 @@ def url_scraper(url):
 	return some_source_scraper(url)
 
 def some_source_scraper(url):
+	#get source
+	source = get_source_site(url)
+	if source == 'cooking.nytimes.com':
+		return nyt_scraper(url)
+	return {error: 'bad url'}
+
+def get_source_site(url):
+	if not url[0] == 'h':
+		url = "http://" + url
+	result = re.search('://(.*)/recipes', url)
+	return result.group(1)
+
+def nyt_scraper(url):
 	recipe = {'url': url}
+	recipe['source'] = 'cooking.nytimes.com'
 	page = urllib2.urlopen(url)
 	soup = BeautifulSoup(page.read())
 	
-	#get source
-	recipe['source'] = get_source_site(url)
-
 	#get title 
 	recipe['name'] = soup.title.text
 
@@ -37,8 +48,3 @@ def some_source_scraper(url):
 	recipe['directions'] = stepstext
 
 	return recipe
-
-def get_source_site(url):
-	result = re.search('://(.*)/recipes', url)
-	return result.group(1)
-
