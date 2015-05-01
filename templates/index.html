@@ -42,23 +42,43 @@
                         <img class ="indexlogo" src="{{url_for('static', filename='logo.png')}}">
                     </div>
                     <div class="col-md-5">
-                        <h2 class="text-right">Recipes</h2>
+                        <div class="row"><h2 class="text-right">Recipes</h2></div>
+                        <div class="row"><div class="text-right">
+                <form action="{{ url_for('signout') }}">
+                <button class="btn btn-default" id="logout" type="submit">Logout</button>
+            </form>
+            </div></div>
                     </div>
                 </div>
             </div>
-            
+            <div class="row">
+                <div class="col-xs-6 col-xs-offset-3 text-center well">
+                    <p>Welcome to Recipe Cards! By pasting a URL to the input box below, our tiny internet sous-chefs will gather information about the recipe and store it in our digital recipe box. On the page for your recipe, you will be able to display the cooking instructions one at a time and HUGE so you don't have to get your computer dirty in the kitchen. Just hit either half of the keyboard with your clean elbows to advance (or go back) a step!</p>
+                </div>
+            </div>
+            <div class = "row">
             <form class="form-inline text-center" id="urlsearch"
                   action="{{ url_for('recipe_by_url') }}" method=post>
                 <input type="text" class="form-control inline-wide" name="url"
                        placeholder="Paste the link to your recipe here">
                 <button class="btn btn-default" id="submitbtn" type="submit">Go!</button>
             </form>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4 text-center">
+                <p> Your recipes:</p>
             {% for recipe in recipes %}
             <p class="text-center">
                 <a href="{{url_for('recipepage', recipe_id=recipe.id)}}">{{recipe.name}}</a> from
                 <a href="http://{{recipe.source}}">{{recipe.source}}</a>
             </p>
             {% endfor %}
+            <hr>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4 text-center">
+
             <p>
                 We can get recipes from:
             </p>
@@ -68,14 +88,10 @@
                 <li><a href="http://www.epicurious.com">Epicurious</a></li>
                 <li><a href="http://cooking.nytimes.com">New York Times Cooking</a></li>
             </ul>
-            
-            <div class="text-right">
-                <form action="{{ url_for('signout') }}">
-                <button class="btn btn-default" id="logout" type="submit">Logout</button>
-            </form>
             </div>
         </div>
         
+        </div>
     </body>
     
 </html>

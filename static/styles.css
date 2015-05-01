@@ -50,7 +50,7 @@ li {
 .modal-wide .modal-body {
   overflow-y: auto;
 }
-#tallModal .modal-body p { font-size: 72px;}
+#tallModal .modal-body p { font-size: 60px;}
 
 .defHide {
     display: none;
