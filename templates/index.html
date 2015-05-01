@@ -43,6 +43,7 @@
                     </div>
                     <div class="col-md-5">
                         <div class="row"><h2 class="text-right">Recipes</h2></div>
+                        <br>
                         <div class="row"><div class="text-right">
                 <form action="{{ url_for('signout') }}">
                 <button class="btn btn-default" id="logout" type="submit">Logout</button>
@@ -57,12 +58,16 @@
                 </div>
             </div>
             <div class = "row">
-            <form class="form-inline text-center" id="urlsearch"
+                <div class="col-xs-6 col-xs-offset-3 text-center">
+            <form class="form-inline " id="urlsearch"
                   action="{{ url_for('recipe_by_url') }}" method=post>
                 <input type="text" class="form-control inline-wide" name="url"
                        placeholder="Paste the link to your recipe here">
                 <button class="btn btn-default" id="submitbtn" type="submit">Go!</button>
             </form>
+        </div>
+        <div class="col-xs-1">
+
             {% if error %}
                     <div class="alert alert-danger alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert"
@@ -72,6 +77,7 @@
                         {{error}}
                     </div>
                     {% endif %}
+                </div>
         </div>
         <div class="row">
             <div class="col-xs-4 col-xs-offset-4 text-center">
