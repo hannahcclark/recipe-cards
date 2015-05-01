@@ -66,7 +66,7 @@
 	});
 
  	$("#sms").click(function(){
-
+ 		$("#wrong-phone").hide();
  		if (!($("#phone").val() === "")) {
 	 		if ($("#inclM").is(":checked")) {
 	 			if($("#locForm input[type='radio']:checked").val() === "geoloc") {
@@ -79,7 +79,7 @@
 						});
 					}
 	 				else {
-	 					console.log("should display error");
+	 					$("#wrong-phone").show();
 	 				}
 	 			}
 	 			else {
@@ -95,10 +95,10 @@
 	 								});
 					 		}
 					 		else {
-					 			console.log("should display error");
+					 			$("#wrong-phone").show();
 					 		}
 	 					},
-	 					error: function() {console.log("should display error");}
+	 					error: function() {$("#wrong-phone").show();}
 	 				}
 	 				);
 	 			}
@@ -108,7 +108,7 @@
 	 		}
 	 	}
 	 	else {
-	 		console.log("should display error");
+	 		$("#wrong-phone").show();
 	 	}
  	});
 });
@@ -136,12 +136,12 @@ function getAddress(lat, lng, callback) {
 					callback(place.name + "\n" + place.formatted_address);
 				}
 				else {
-					console.log("show error");
+					$("#wrong-phone").show();
 				}
 			});
 		}
 		else {
-			console.log("show error");
+			$("#wrong-phone").show();
 		}
 	});
 }
@@ -149,5 +149,5 @@ function getAddress(lat, lng, callback) {
 function sendSMS(text) {
 	var phone = $("#phone").val();
 	$.post("/sendSMS/", {'msg':text, 'phone':phone},
-		function(data){console.log('success')});
+		function(data){$("#wrong-phone").hide();});
 }
