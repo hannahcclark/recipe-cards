@@ -4,18 +4,20 @@ import re
 
 def url_scraper(url):
 	#get source
+	if len(url) == 0:
+		return {error: 'bad url'}
+	if not url[0] == 'h':
+		url = "http://" + url
 	source = get_source_site(url)
 	if source == 'cooking.nytimes.com':
 		return nyt_scraper(url)
-	if source == 'www.epicurious.com':
+	elif source == 'www.epicurious.com':
 		return epi_scraper(url)
-	if source == 'food52.com':
+	elif source == 'food52.com':
 		return f52_scraper(url)
 	return {error: 'bad url'}
 
 def get_source_site(url):
-	if not url[0] == 'h':
-		url = "http://" + url
 	result = re.search('://(.*)/recipe', url)
 	return result.group(1)
 
