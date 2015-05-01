@@ -123,7 +123,6 @@ def sendSMS():
 		from_=from_num, 
 		body=data['msg'],  
 	)
-	print req.status
 	return jsonify(success = True)
 
 def get_recipes_by_user(user_id):

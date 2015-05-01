@@ -3,9 +3,6 @@ import urllib2
 import re
 
 def url_scraper(url):
-	return some_source_scraper(url)
-
-def some_source_scraper(url):
 	#get source
 	source = get_source_site(url)
 	if source == 'cooking.nytimes.com':
