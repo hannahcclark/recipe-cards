@@ -80,7 +80,7 @@ def recipepage(recipe_id):
 @app.route('/recipe-by-url/', methods=['POST'])
 def recipe_by_url():
 	data = request.form
-	not 'user' in session:
+	if not 'user' in session:
 		return render_template('index.html', error="An error occured with your account. Please try signing out and logging back in.")
 	if not data or not 'url' in data or data['url']=='':
 		recipes = get_recipes_by_user(session['user'])
