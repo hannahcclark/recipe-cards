@@ -130,7 +130,7 @@ def all_scraper(url):
 	recipe['name'] = soup.find('h1', {"itemprop":"name"}).text
 
 	#get author
-	author = soup.find_all('span', class_="name")
+	author = soup.find_all('span', {"itemprop":"author"})
 	recipe['author'] = author[0].text.replace('\n','')
 
 	#get ingredients
