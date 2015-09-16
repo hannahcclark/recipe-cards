@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.config.update(
 	SECRET_KEY = open("/dev/random","rb").read(32) 
 )
-connection = MongoClient(os.environ['MONGOLAB_URI']) #TODO: set env and test
+connection = MongoClient(os.environ['MONGOLAB_URI'])
 db = connection.get_default_database()
 
 @app.errorhandler(500)
