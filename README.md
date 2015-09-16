@@ -1,4 +1,7 @@
-#recipe.card
+#recipe-cards
+
+This project was the result of the final group project for Tufts's Web Programming class in Spring semester 2015. What follows is the design document for the project.
+
 Using online recipes, as opposed to cookbooks, is becoming very common. However, on many sites text is small and requires keeping a device closer to the food and wet surfaces than ideal. Magnifying text requires frequent scrolling and getting food on the device. The problem is not finding recipes, but using them after finding ones from a favorite site. We will also streamline shopping for ingredients for multiple recipes, to create an appealing digital cooking utility.
 
 We will create a website that will generate a recipe card from a URL of a recipe page on one of several popular recipe source websites and allow the user to save it in their recipes. The user will be able to view recipes in a cooking mode, where a small portion of the directions will be displayed on the screen, and the directions can be swapped between easily. As an additional incentive to use the product mobile users will also be able to generate a shopping list from ingredients in recipes they select as well as the nearest supermarkets.
@@ -34,9 +37,3 @@ We will create a website that will generate a recipe card from a URL of a recipe
 ###Mobile Features Views
 ![Cooking View Wireframe](https://github.com/tuftsdev/comp20-spring2015-team13/blob/master/Wireframes/mobileview.png)
 
-#Comments by Ming
-1. WAY too ambitious, you will be lucky to complete 2 or 3 of the features listed well.
-2. Be very careful with data scraping. It can be ugly.
-3. Lovely wireframes
-4. What APIs will you be using?
-5. Overall score: 14/15

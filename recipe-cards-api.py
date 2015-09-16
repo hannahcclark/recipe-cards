@@ -12,9 +12,8 @@ app = Flask(__name__)
 app.config.update(
 	SECRET_KEY = open("/dev/random","rb").read(32) 
 )
-connection = MongoClient("ds031701.mongolab.com", 31701)
-db = connection["recipe-cards-db"]
-db.authenticate("admin", "password")
+connection = MongoClient(os.environ['MONGOLAB_URI']) #TODO: set env and test
+db = connection.get_default_database()
 
 @app.errorhandler(500)
 def bad_params(error):
